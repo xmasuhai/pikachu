@@ -1,13 +1,17 @@
-.skin {
-  position: relative;
-  background-color: #ffe035;
+body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: #ffe035;
+}
+
+.face {
+  position: relative;
 
   .noseTip {
+    z-index: 1;
     position: absolute;
     left: 50%;
-    top: 50vh;
+    top: 310px;
     margin-left: -10px;
     width: 0px;
     border: 10px solid transparent;
@@ -49,15 +53,56 @@
     &::before {
       content: '';
       display: block;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 100%;
-      border: 1px solid red;
-      background-color: #fff;
+      background-color: whitesmoke;
       position: relative;
       left: 5px;
       top: 5px;
     }
   }
 
+  .mouth {
+    width: 220px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    top: 350px;
+    margin-left: -110px;
+
+    .lip {
+      position: relative;
+
+      %lips {
+        border: 4px solid black;
+        width: 110px;
+        height: 30px;
+      }
+
+      @mixin border($bd-b-l-rad: 60px 30px, $bd-0-width: 0px, $rotate:rotate(-20deg)) {
+        border-bottom-left-radius: $bd-b-l-rad;
+        border-top-width: $bd-0-width;
+        border-right-width: $bd-0-width;
+        transform: $rotate;
+      }
+
+      &>.lip-right {
+        @extend %lips;
+        @include border;
+
+      }
+
+      &>.lip-left {
+        @extend %lips;
+        @include border;
+        transform: translateX(110px) scaleX(-1);
+        transform-origin: bottom;
+      }
+    }
+
+    .tongue {
+      border: 0.001px solid transparent;
+    }
+  }
 }
