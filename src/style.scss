@@ -99,15 +99,18 @@ body {
         border-right-width: 0px;
         border-top-color: #ffe035;
         border-top-right-radius: 60px 30px;
-        box-shadow: 0px -1px 0 0 red;
 
         // mustache
         &::after {
           content: '';
           display: block;
-          border: 1px solid #ffe035;
+
+          @include widthHeight(100%, 0.01px);
+          border: 2px solid #ffe035;
           outline: 1px solid #ffe035;
-          position: relative;
+          position: absolute;
+          top: -3px;
+          left: 1px;
         }
       }
 
