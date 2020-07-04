@@ -4,6 +4,11 @@ body {
   background-color: #ffe035;
 }
 
+.face .noseTip::before, .face .eye::before, .face .mouth .lip > .lip-left::after, .face .mouth .lip > .lip-right::after, .face .mouth .jaw .lowerJaw::after {
+  content: '';
+  display: block;
+}
+
 .face {
   position: relative;
 }
@@ -20,16 +25,34 @@ body {
 }
 
 .face .noseTip::before {
-  content: '';
-  display: block;
-  position: absolute;
   width: 20px;
   height: 10px;
+  position: absolute;
   top: -16px;
   left: -10px;
   background-color: black;
   border-radius: 10px / 5px;
   box-shadow: 0px 0px 1px 0px black;
+}
+
+@keyframes shakeNose {
+  0% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(5deg);
+  }
+  66% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.face .noseTip:hover {
+  transform-origin: center bottom;
+  animation: shakeNose infinite 300ms linear;
 }
 
 .face .eye {
@@ -50,8 +73,6 @@ body {
 }
 
 .face .eye::before {
-  content: '';
-  display: block;
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -59,6 +80,30 @@ body {
   position: relative;
   left: 5px;
   top: 5px;
+}
+
+.face .cheek {
+  z-index: 2;
+}
+
+.face .cheek .cheek-left, .face .cheek .cheek-right {
+  border: 2px solid #000;
+  background-color: red;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  position: absolute;
+  top: 400px;
+  left: 50%;
+  margin-left: -43px;
+}
+
+.face .cheek-left {
+  transform: translateX(-180px);
+}
+
+.face .cheek-right {
+  transform: translateX(180px);
 }
 
 .face .mouth {
@@ -87,8 +132,6 @@ body {
 }
 
 .face .mouth .lip > .lip-left::after, .face .mouth .lip > .lip-right::after {
-  content: '';
-  display: block;
   width: 100%;
   height: 0.01px;
   border: 2px solid #ffe035;
@@ -114,23 +157,29 @@ body {
   position: absolute;
   top: 8px;
   overflow: hidden;
-  border-radius: 50% 50% 50% 50% / 20% 20% 80%;
+  border-radius: 50% 50% 00/ 25% 25% 0 0;
 }
 
-.face .mouth .jaw::before {
-  border: 1px solid #000;
-}
-
-.face .mouth .jaw::after {
-  content: '';
-  display: block;
+.face .mouth .jaw .lowerJaw {
   width: 180px;
   height: 580px;
   position: absolute;
   bottom: 0;
   left: 50%;
   margin-left: -90px;
-  border: 1px solid #000;
+  border: 3px solid #000;
   border-radius: 50% / 50%;
+  background-color: #9b000a;
+  overflow: hidden;
+}
+
+.face .mouth .jaw .lowerJaw::after {
+  width: 200px;
+  height: 380px;
   background-color: #ff485f;
+  position: absolute;
+  bottom: -190px;
+  left: 50%;
+  margin-left: -100px;
+  border-radius: 100px;
 }
