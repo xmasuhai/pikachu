@@ -4,26 +4,42 @@ body {
   background-color: #ffe035;
 }
 
+@mixin widthHeight($width: 0px, $height: 0px) {
+  width: $width;
+  height: $height;
+}
+
+@function boxSize($width: 0px, $height: false) {
+  @if $height==false {
+    $height: $width;
+  }
+
+  // @warn $width;
+  // @warn $height;
+  // while invoke need `...`
+  @return ($width, $height);
+}
+
 .face {
   position: relative;
 
   .noseTip {
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     left: 50%;
     top: 310px;
     margin-left: -10px;
-    width: 0px;
-    border: 10px solid transparent;
+
+    border: 10px solid #ffe035;
     border-top-color: black;
     border-bottom-width: 0px; // border-bottom: none;
 
+    // Nasal bridge
     &::before {
       content: '';
       display: block;
       position: absolute;
-      width: 20px;
-      height: 10px;
+      @include widthHeight(20px, 10px);
       top: -16px;
       left: -10px;
       background-color: black;
@@ -35,14 +51,14 @@ body {
 
   .eye {
     border: 2px solid #000;
-    width: 64px;
-    height: 64px;
+    @include widthHeight(boxSize(64px)...);
     background: #2e2e2e;
     border-radius: 100%;
+
     position: absolute;
+    top: 270px;
     left: 50%;
     margin-left: -32px;
-    top: 270px;
     transform: translateX(-150px);
 
     &-right {
@@ -50,11 +66,11 @@ body {
       ;
     }
 
+    // pupil
     &::before {
       content: '';
       display: block;
-      width: 30px;
-      height: 30px;
+      @include widthHeight(boxSize(30px)...);
       border-radius: 100%;
       background-color: whitesmoke;
       position: relative;
@@ -64,45 +80,85 @@ body {
   }
 
   .mouth {
-    width: 220px;
-    height: 200px;
+    @include widthHeight(220px, 200px);
     position: absolute;
     left: 50%;
     top: 350px;
     margin-left: -110px;
 
     .lip {
+      z-index: 1;
       position: relative;
 
       %lips {
+        background-color: #ffe035;
+        @include widthHeight(110px, 30px);
+
         border: 4px solid black;
-        width: 110px;
-        height: 30px;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-top-color: #ffe035;
+        border-top-right-radius: 60px 30px;
+        box-shadow: 0px -1px 0 0 red;
+
+        // mustache
+        &::after {
+          content: '';
+          display: block;
+          border: 1px solid #ffe035;
+          outline: 1px solid #ffe035;
+          position: relative;
+        }
       }
 
-      @mixin border($bd-b-l-rad: 60px 30px, $bd-0-width: 0px, $rotate:rotate(-20deg)) {
+      @mixin border($bd-b-l-rad: 60px 30px, $rotate:rotate(-20deg)) {
         border-bottom-left-radius: $bd-b-l-rad;
-        border-top-width: $bd-0-width;
-        border-right-width: $bd-0-width;
         transform: $rotate;
-      }
-
-      &>.lip-right {
-        @extend %lips;
-        @include border;
-
       }
 
       &>.lip-left {
         @extend %lips;
         @include border;
-        transform: translateX(110px) scaleX(-1);
-        transform-origin: bottom;
+
+      }
+
+      &>.lip-right {
+        @extend %lips;
+        @include border(60px 30px, translate(110px, -30px) scaleX(-1) rotate(-20deg));
+
       }
     }
 
-    .tongue {
-      border: 0.001px solid transparent;
+    .jaw {
+      @include widthHeight(100%, 220px);
+
+      position: absolute;
+      top: 8px;
+      overflow: hidden;
+      border-radius: 50% 50% 50% 50% / 20% 20% 80%;
+
+      // tongue
+      &::before {
+        border: 1px solid #000;
+      }
+
+      //lower jaw
+      &::after {
+        $jaw-width: 180px;
+        content: '';
+        display: block;
+        @include widthHeight($jaw-width, 580px);
+
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -($jaw-width)/2;
+
+        border: 1px solid #000;
+        border-radius: 50% / 50%;
+
+        background-color: #ff485f;
+      }
     }
   }
 }
