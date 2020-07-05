@@ -11,18 +11,18 @@ const player = {
         demo: document.querySelector('#demo'),
         demo2: document.querySelector('#demo2')
     },
-    init: () => {
-        player.ui.demo.innerText = string.substr(0, player.n)
-        player.ui.demo2.innerHTML = stringDefault + string.substr(0, player.n)
-    player.play()
-    player.eventBind()
-    },
     events : {
         '#btnPause': 'pause',
         '#btnPlay': 'play',
         '#btnSlow': 'slow',
         '#btnNormal': 'normal',
         '#btnFast': 'fast'
+    },
+    init: () => {
+        player.ui.demo.innerText = string.substr(0, player.n)
+        player.ui.demo2.innerHTML = stringDefault + string.substr(0, player.n)
+    player.eventBind()
+    player.play()
     },
     eventBind: () => {
         for(let key in player.events) {
