@@ -18,7 +18,7 @@ yarn build
 - 预览链接：[http://xmasuhai.xyz/pikachu/dist/index.html](http://xmasuhai.xyz/pikachu/dist/index.html)
 
 
-## 会动的代码预览链接
+## 会动的代码
 
 - 预览链接：[http://xmasuhai.xyz/pikachu/dist/test.html](http://xmasuhai.xyz/pikachu/dist/test.html)
 
