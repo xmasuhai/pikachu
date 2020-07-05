@@ -1,8 +1,4 @@
-.face .nose-tip::after, .face .nose-tip::before, .face .eye::before, .face .mouth .lip > .lip-left::after, .face .mouth .lip > .lip-right::after, .face .mouth .jaw .lower-jaw::after {
-  content: '';
-  display: block;
-}
-
+const string = `
 body {
   background-color: #ffe035;
   min-height: 100vh;
@@ -10,6 +6,7 @@ body {
 }
 
 .face {
+  min-height: 35vh;
   height: 300px;
   left: 50%;
   position: absolute;
@@ -54,26 +51,6 @@ body {
   top: -16px;
 }
 
-@keyframes shakeNose {
-  0% {
-    transform: rotate(0deg);
-  }
-  33% {
-    transform: rotate(5deg);
-  }
-  66% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0);
-  }
-}
-
-.face .nose-tip:hover {
-  animation: shakeNose infinite 300ms linear;
-  transform-origin: center bottom;
-}
-
 .face .eye {
   height: 64px;
   width: 64px;
@@ -99,10 +76,6 @@ body {
   left: 5px;
   position: relative;
   top: 5px;
-}
-
-.face .cheek {
-  z-index: 2;
 }
 
 .face .cheek .cheek-left, .face .cheek .cheek-right {
@@ -202,3 +175,5 @@ body {
   margin-left: -100px;
   position: absolute;
 }
+`;
+export default string;

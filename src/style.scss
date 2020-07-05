@@ -1,16 +1,18 @@
-body {
-  width: 100vw;
-  min-height: 100vh;
-  background-color: #ffe035;
-}
+$pikachu-shin: #ffe035;
+$outline-color: #000;
+$pupil-color: #2e2e2e;
+$pupil-color2: #f5f5f5;
+$tongue: #9b000a;
+$bloody-mouth: #ff485f;
+$japan-red: #f00;
 
-@mixin widthHeight($width: 0px, $height: 0px) {
-  width: $width;
+@mixin width-height($width: 0, $height: 0) {
   height: $height;
+  width: $width;
 }
 
-@function boxSize($width: 0px, $height: false) {
-  @if $height==false {
+@function box-size($width: 0, $height: false) {
+  @if $height == false {
     $height: $width;
   }
 
@@ -25,32 +27,60 @@ body {
   display: block;
 }
 
+body {
+  background-color: $pikachu-shin;
+  min-height: 100vh;
+  width: 100vw;
+}
+
 .face {
-  position: relative;
+  height: 300px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 500px;
 
-  .noseTip {
-    z-index: 2;
-    position: absolute;
+  .nose-tip {
+    border: 10px solid $pikachu-shin;
+    border-bottom-width: 1px;
+    border-left-color: $pikachu-shin;
+    border-right-color: $pikachu-shin;
+    border-top-color: $outline-color;
+
     left: 50%;
-    top: 310px;
     margin-left: -10px;
+    position: absolute;
+    top: 100px;
+    z-index: 2;
 
-    border: 10px solid #ffe035;
-    border-top-color: black;
-    border-bottom-width: 0px; // border-bottom: none;
+    &::after {
+      @extend %pseudo;
+      @include width-height(box-size(22px)...);
+
+      border: 3px solid $pikachu-shin;
+      border-radius: 0 0 12px 12px / 0 0 20px 20px;
+      border-top-color: transparent;
+
+      left: -11px;
+      overflow: hidden;
+      position: absolute;
+      top: -11px;
+      z-index: 1;
+    }
+    // border-bottom: none;
 
     // Nasal bridge
     &::before {
       @extend %pseudo;
-      @include widthHeight(20px, 10px);
+      @include width-height(20px, 10px);
 
+      background-color: $outline-color;
+      border-radius: 10px / 5px;
+      left: -10px;
       position: absolute;
       top: -16px;
-      left: -10px;
-
-      background-color: black;
-      border-radius: 10px / 5px;
-      box-shadow: 0px 0px 1px 0px black;
+      //box-shadow: 0px 0px 1px 0px black;
     }
 
     $n: 5deg;
@@ -63,11 +93,9 @@ body {
 
       @for $i from 1 to 3 {
         #{$i * $step} {
-          @if $i % 2==0 {
+          @if $i % 2 == 0 {
             transform: rotate(-$n);
-          }
-
-          @else {
+          } @else {
             transform: rotate($n);
           }
         }
@@ -79,156 +107,159 @@ body {
     }
 
     &:hover {
-      transform-origin: center bottom;
       animation: shakeNose infinite 300ms linear;
+      transform-origin: center bottom;
     }
   }
 
   .eye {
-    border: 2px solid #000;
-    @include widthHeight(boxSize(64px)...);
-    background: #2e2e2e;
+    @include width-height(box-size(64px)...);
+
+    background: $pupil-color;
+    border: 2px solid $outline-color;
     border-radius: 100%;
 
-    position: absolute;
-    top: 270px;
     left: 50%;
     margin-left: -32px;
+    position: absolute;
+    top: 70px;
     transform: translateX(-150px);
 
     &-right {
       transform: translateX(150px);
-      ;
     }
 
     // pupil
     &::before {
       @extend %pseudo;
-      @include widthHeight(boxSize(30px)...);
-      border-radius: 100%;
-      background-color: whitesmoke;
-      position: relative;
+      @include width-height(box-size(30px)...);
+      background-color: $pupil-color2;
+      border-radius: 50%;
       left: 5px;
+      position: relative;
       top: 5px;
     }
   }
 
   .cheek {
     z-index: 2;
-    $cheek-widthHeight: 86px;
+    $cheek-width-height: 86px;
 
-    %cheekDefault {
-      border: 2px solid #000;
-      background-color: red;
-      @include widthHeight(boxSize($cheek-widthHeight)...);
+    %cheek-default {
+      @include width-height(box-size($cheek-width-height)...);
+      background-color: $japan-red;
+      border: 2px solid $outline-color;
       border-radius: 50%;
 
-      position: absolute;
-      top: 400px;
       left: 50%;
-      margin-left: -$cheek-widthHeight/2;
+      margin-left: -$cheek-width-height / 2;
+      position: absolute;
+      top: 180px;
     }
 
     &-left {
-      @extend %cheekDefault;
+      @extend %cheek-default;
       transform: translateX(-180px);
     }
 
     &-right {
-      @extend %cheekDefault;
+      @extend %cheek-default;
       transform: translateX(180px);
     }
   }
 
   .mouth {
-    @include widthHeight(220px, 200px);
-    position: absolute;
+    @include width-height(220px, 200px);
+
     left: 50%;
-    top: 350px;
     margin-left: -110px;
+    position: absolute;
+    top: 135px;
+
+    // placeholder
+    %lips {
+      @include width-height(110px, 30px);
+      background-color: $pikachu-shin;
+
+      border: 4px solid $outline-color;
+      border-top-color: $pikachu-shin;
+      border-top-right-radius: 60px 30px;
+      border-top-width: 0;
+      border-right-width: 0;
+
+      // mustache
+      &::after {
+        @extend %pseudo;
+
+        @include width-height(100%, .01px);
+        border: 2px solid $pikachu-shin;
+        left: 1px;
+        outline: 1px solid $pikachu-shin;
+        position: absolute;
+        top: -3px;
+      }
+    }
 
     .lip {
-      z-index: 1;
       position: relative;
+      z-index: 1;
 
-      %lips {
-        background-color: #ffe035;
-        @include widthHeight(110px, 30px);
-
-        border: 4px solid black;
-        border-top-width: 0px;
-        border-right-width: 0px;
-        border-top-color: #ffe035;
-        border-top-right-radius: 60px 30px;
-
-        // mustache
-        &::after {
-          @extend %pseudo;
-
-          @include widthHeight(100%, 0.01px);
-          border: 2px solid #ffe035;
-          outline: 1px solid #ffe035;
-          position: absolute;
-          top: -3px;
-          left: 1px;
-        }
-      }
-
-      @mixin border($bd-b-l-rad: 60px 30px, $rotate:rotate(-20deg)) {
+      @mixin border($bd-b-l-rad: 60px 30px, $rotate: rotate(-20deg)) {
         border-bottom-left-radius: $bd-b-l-rad;
         transform: $rotate;
       }
 
-      &>.lip-left {
+      >.lip-left {
         @extend %lips;
         @include border;
       }
 
-      &>.lip-right {
+      >.lip-right {
         @extend %lips;
         @include border(60px 30px, translate(110px, -30px) scaleX(-1) rotate(-20deg));
       }
     }
 
     .jaw {
-      @include widthHeight(100%, 220px);
+      @include width-height(100%, 220px);
 
+      // hide lower jaw
+      border-radius: 50% 50% 0 0 / 25% 25% 0 0;
+      overflow: hidden;
       position: absolute;
       top: 8px;
 
-      // hide lower jaw
-      overflow: hidden;
-      border-radius: 50% 50% 00/ 25% 25% 0 0;
 
-      .lowerJaw {
+      .lower-jaw {
         $jaw-width: 180px;
-        @include widthHeight($jaw-width, 580px);
+        @include width-height($jaw-width, 580px);
 
-        position: absolute;
+
+        background-color: $tongue;
+        border: 3px solid $outline-color;
+        border-radius: 50% / 50%;
         bottom: 0;
         left: 50%;
-        margin-left: -($jaw-width)/2;
-
-        border: 3px solid #000;
-        border-radius: 50% / 50%;
-        background-color: #9b000a;
+        margin-left: -($jaw-width) / 2;
+        overflow: hidden;
+        position: absolute;
 
         // hide tongue
-        overflow: hidden;
 
         // tongue
         &::after {
           @extend %pseudo;
+
           $tongue-width: 200px;
           $tongue-height: 380px;
-          @include widthHeight($tongue-width, $tongue-height);
-          background-color: #ff485f;
+          @include width-height($tongue-width, $tongue-height);
 
-          position: absolute;
-          bottom: -$tongue-height/2;
-          left: 50%;
-          margin-left: -$tongue-width/2;
+          background-color: $bloody-mouth;
           border-radius: 100px;
+          bottom: -$tongue-height / 2;
+          left: 50%;
+          margin-left: -$tongue-width / 2;
+          position: absolute;
         }
       }
     }
