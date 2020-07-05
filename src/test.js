@@ -20,29 +20,27 @@ const run = () => {
     demo.scrollTop = demo.scrollHeight;
 }
 const play = () => {
-    setInterval(run, intervalTime);
+    return setInterval(run, intervalTime);
 }
 const pause = () => {
     window.clearInterval(id);
 }
+let id = play();
 const slow = () => {
     pause();
-    let intervalTime = 80;
+    intervalTime = 80;
     id = play();
 }
 const normal = () => {
     pause();
-    let intervalTime = 16;
+    intervalTime = 16;
     id = play();
 }
 const fast = () => {
     pause();
-    let intervalTime = 0;
+    intervalTime = 0;
     id = play();
 }
-
-let id = play();
-
 btnPause.onclick = pause;
 btnPlay.onclick = () => {
     id = play();

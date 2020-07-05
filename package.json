@@ -3,7 +3,7 @@
     "sass": "^1.26.9"
   },
   "scripts": {
-    "build": "rm -rf dist && parcel build src/index.html --no-minify --public-url ./"
+    "build": "rm -rf dist && parcel build src/index.html src/test.html --no-minify --public-url ./"
   },
   "dependencies": {
     "scss-lint": "0.0.0"
