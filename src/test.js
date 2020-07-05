@@ -1,50 +1,70 @@
 // 模块化
-import stringDefault from './stringDefault.js';
-import string from './string.js';
-import stringAnimation from './stringAnimation.js';
+import stringDefault from './stringDefault.js'
+import string from './string.js'
+import stringAnimation from './stringAnimation.js'
 
-let n = 1;
-demo.innerText = string.substr(0, n);
-demo2.innerHTML = stringDefault + string.substr(0, n);
-
-let intervalTime = 80;
-const run = () => {
-    n += 1;
-    if(n > string.length){
-        window.clearInterval(id);
-        demo2.innerHTML += stringAnimation;
-        return
+const player = {
+    id: undefined,
+    n: 1,
+    intervalTime: 80,
+    ui: {
+        demo: document.querySelector('#demo'),
+        demo2: document.querySelector('#demo2')
+    },
+    init: () => {
+        player.ui.demo.innerText = string.substr(0, player.n)
+        player.ui.demo2.innerHTML = stringDefault + string.substr(0, player.n)
+    player.play()
+    player.eventBind()
+    },
+    events : {
+        '#btnPause': 'pause',
+        '#btnPlay': 'play',
+        '#btnSlow': 'slow',
+        '#btnNormal': 'normal',
+        '#btnFast': 'fast'
+    },
+    eventBind: () => {
+        for(let key in player.events) {
+            // 防御型编程
+            if(player.events.hasOwnProperty(key)){
+                const value = player.events[key] // pause /play / slow /...
+                document.querySelector(key).onclick = player[value]
+            }
+        }
+    },
+    pause: () => {
+        window.clearInterval(player.id)
+    },
+    run:() => {
+        player.n += 1
+        if(player.n > string.length){
+            player.pause()
+            player.ui.demo2.innerHTML += stringAnimation
+            return
+        }
+        player.ui.demo.innerText = string.substr(0, player.n)
+        player.ui.demo2.innerHTML = stringDefault + string.substr(0, player.n)
+        player.ui.demo.scrollTop = player.ui.demo.scrollHeight
+    },
+    play:() => {
+        player.pause()
+        player.id = setInterval(player.run, player.intervalTime)
+    },
+    slow: () => {
+        player.pause()
+        player.intervalTime = 80
+        player.play()
+    },
+    normal: () => {
+        player.pause()
+        player.intervalTime = 16
+        player.play()
+    },
+    fast: () => {
+        player.pause()
+        player.intervalTime = 0
+        player.play()
     }
-    demo.innerText = string.substr(0, n);
-    demo2.innerHTML = stringDefault + string.substr(0, n);
-    demo.scrollTop = demo.scrollHeight;
 }
-const play = () => {
-    return setInterval(run, intervalTime);
-}
-const pause = () => {
-    window.clearInterval(id);
-}
-let id = play();
-const slow = () => {
-    pause();
-    intervalTime = 80;
-    id = play();
-}
-const normal = () => {
-    pause();
-    intervalTime = 16;
-    id = play();
-}
-const fast = () => {
-    pause();
-    intervalTime = 0;
-    id = play();
-}
-btnPause.onclick = pause;
-btnPlay.onclick = () => {
-    id = play();
-}
-btnSlow.onclick = slow;
-btnNormal.onclick = normal;
-btnFast.onclick = fast;
+player.init()

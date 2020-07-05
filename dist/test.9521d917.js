@@ -159,61 +159,73 @@ var _stringAnimation = _interopRequireDefault(require("./stringAnimation.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 模块化
-var n = 1;
-demo.innerText = _string.default.substr(0, n);
-demo2.innerHTML = _stringDefault.default + _string.default.substr(0, n);
-var intervalTime = 80;
+var player = {
+  id: undefined,
+  n: 1,
+  intervalTime: 80,
+  ui: {
+    demo: document.querySelector('#demo'),
+    demo2: document.querySelector('#demo2')
+  },
+  init: function init() {
+    player.ui.demo.innerText = _string.default.substr(0, player.n);
+    player.ui.demo2.innerHTML = _stringDefault.default + _string.default.substr(0, player.n);
+    player.play();
+    player.eventBind();
+  },
+  events: {
+    '#btnPause': 'pause',
+    '#btnPlay': 'play',
+    '#btnSlow': 'slow',
+    '#btnNormal': 'normal',
+    '#btnFast': 'fast'
+  },
+  eventBind: function eventBind() {
+    for (var key in player.events) {
+      // 防御型编程
+      if (player.events.hasOwnProperty(key)) {
+        var value = player.events[key]; // pause /play / slow /...
 
-var run = function run() {
-  n += 1;
+        document.querySelector(key).onclick = player[value];
+      }
+    }
+  },
+  pause: function pause() {
+    window.clearInterval(player.id);
+  },
+  run: function run() {
+    player.n += 1;
 
-  if (n > _string.default.length) {
-    window.clearInterval(id);
-    demo2.innerHTML += _stringAnimation.default;
-    return;
+    if (player.n > _string.default.length) {
+      player.pause();
+      player.ui.demo2.innerHTML += _stringAnimation.default;
+      return;
+    }
+
+    player.ui.demo.innerText = _string.default.substr(0, player.n);
+    player.ui.demo2.innerHTML = _stringDefault.default + _string.default.substr(0, player.n);
+    player.ui.demo.scrollTop = player.ui.demo.scrollHeight;
+  },
+  play: function play() {
+    player.pause();
+    player.id = setInterval(player.run, player.intervalTime);
+  },
+  slow: function slow() {
+    player.pause();
+    player.intervalTime = 80;
+    player.play();
+  },
+  normal: function normal() {
+    player.pause();
+    player.intervalTime = 16;
+    player.play();
+  },
+  fast: function fast() {
+    player.pause();
+    player.intervalTime = 0;
+    player.play();
   }
-
-  demo.innerText = _string.default.substr(0, n);
-  demo2.innerHTML = _stringDefault.default + _string.default.substr(0, n);
-  demo.scrollTop = demo.scrollHeight;
 };
-
-var play = function play() {
-  return setInterval(run, intervalTime);
-};
-
-var pause = function pause() {
-  window.clearInterval(id);
-};
-
-var id = play();
-
-var slow = function slow() {
-  pause();
-  intervalTime = 80;
-  id = play();
-};
-
-var normal = function normal() {
-  pause();
-  intervalTime = 16;
-  id = play();
-};
-
-var fast = function fast() {
-  pause();
-  intervalTime = 0;
-  id = play();
-};
-
-btnPause.onclick = pause;
-
-btnPlay.onclick = function () {
-  id = play();
-};
-
-btnSlow.onclick = slow;
-btnNormal.onclick = normal;
-btnFast.onclick = fast;
+player.init();
 },{"./stringDefault.js":"E0ab","./string.js":"OqZs","./stringAnimation.js":"aqA5"}]},{},["HdJB"], null)
-//# sourceMappingURL=test.ac9bd2fe.js.map
+//# sourceMappingURL=test.9521d917.js.map
