@@ -29,7 +29,7 @@ parcel build src/index.html --public-url .
 
 ```JavaScript
 "scripts": {
-"build":"rm -rf dist && parcel build src/index.html --no-minify --public-url ./"
+"build":"rm -rf dist && parcel build src/index.html src/test.html --no-minify --public-url ./"
 },
 ```
 

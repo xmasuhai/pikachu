@@ -25,13 +25,32 @@ const player = {
     player.play()
     },
     eventBind: () => {
+        /*
         for(let key in player.events) {
+            // console.log(player.events);
+            // console.log(player.events[key]);
+            // console.log(typeof player.events[key]);
             // 防御型编程
+
+            /!* 避免取到原型链上的属性 *!/
             if(player.events.hasOwnProperty(key)){
                 const value = player.events[key] // pause /play / slow /...
                 document.querySelector(key).onclick = player[value]
             }
         }
+*/
+        Object.getOwnPropertyNames(player.events).forEach(
+            (key) => {
+
+                // 防御型编程
+
+                /* 避免取到原型链上的属性 */
+                const value = player.events[key] // pause /play / slow /...
+                // console.log(player.events);
+                // console.log(player.events[key]);
+                // console.log(typeof player.events[key]);
+                document.querySelector(key).onclick = player[value]
+            });
     },
     pause: () => {
         window.clearInterval(player.id)
