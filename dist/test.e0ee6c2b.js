@@ -181,14 +181,30 @@ var player = {
     player.play();
   },
   eventBind: function eventBind() {
-    for (var key in player.events) {
-      // 防御型编程
-      if (player.events.hasOwnProperty(key)) {
-        var value = player.events[key]; // pause /play / slow /...
-
-        document.querySelector(key).onclick = player[value];
-      }
+    /*
+    for(let key in player.events) {
+        // console.log(player.events);
+        // console.log(player.events[key]);
+        // console.log(typeof player.events[key]);
+        // 防御型编程
+          /!* 避免取到原型链上的属性 *!/
+        if(player.events.hasOwnProperty(key)){
+            const value = player.events[key] // pause /play / slow /...
+            document.querySelector(key).onclick = player[value]
+        }
     }
+    */
+    Object.getOwnPropertyNames(player.events).forEach(function (key) {
+      // 防御型编程
+
+      /* 避免取到原型链上的属性 */
+      var value = player.events[key]; // pause /play / slow /...
+      // console.log(player.events);
+      // console.log(player.events[key]);
+      // console.log(typeof player.events[key]);
+
+      document.querySelector(key).onclick = player[value];
+    });
   },
   pause: function pause() {
     window.clearInterval(player.id);
@@ -228,4 +244,4 @@ var player = {
 };
 player.init();
 },{"./stringDefault.js":"E0ab","./string.js":"OqZs","./stringAnimation.js":"aqA5"}]},{},["HdJB"], null)
-//# sourceMappingURL=test.d8b53e2a.js.map
+//# sourceMappingURL=test.e0ee6c2b.js.map
