@@ -1,5 +1,6 @@
 /node_modules/
 /.cache/
-/.idea
+/.idea/
 /.vscode/
 /.sass-cache/
+/dist/

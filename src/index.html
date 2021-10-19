@@ -1,17 +1,73 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
-
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover">
-  <title>PiKaChu</title>
+  <title>画一个皮卡丘</title>
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/modern-normalize/0.6.0/modern-normalize.min.css">
-  <link rel="stylesheet" href="style.scss">
+  <style id="demo2"></style>
 </head>
 
 <body>
+<div id="demo"></div>
+<div id="buttons">
+  <button id="btnPause">暂停</button>
+  <button id="btnPlay">播放</button>
+  <button id="btnSlow">快速</button>
+  <button id="btnNormal">超快速</button>
+  <button id="btnFast">最快速</button>
+</div>
+
+<style>
+  #buttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+
+  #buttons > button {
+    margin-bottom: 10px;
+  }
+
+  @media ( min-width: 320px) and (max-width: 720px) {
+    #buttons > button {
+      padding: 4px 8px;
+      font-size: 20px;
+    }
+  }
+
+  #demo2 {
+    display: none;
+  }
+
+  #demo {
+    background-color: whitesmoke;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40vh;
+    overflow-y: auto;
+  }
+
+  #demo::-webkit-scrollbar {
+    display: none;
+  }
+
+  #html {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+  }
+</style>
+
+<div id="html">
   <div class="face">
     <div class="eye"></div>
     <div class="eye eye-right"></div>
@@ -30,8 +86,7 @@
       </div>
     </div>
   </div>
-
-  <script src="main.js"></script>
+</div>
+<script src="main.js"></script>
 </body>
-
 </html>
