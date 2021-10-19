@@ -16,6 +16,5 @@ git add -A
 git commit -m 'deploy'
 
 git push -f git@github.com:xmasuhai/pikachu-website.git master:gh-pages
-git push -f git@github.com:xmasuhai/pikachu.git master:gh-pages
 
 cd -
