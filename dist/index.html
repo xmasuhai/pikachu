@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>画一个皮卡丘</title>
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/modern-normalize/0.6.0/modern-normalize.min.css">
+  <style id="demo2"></style>
+</head>
+
+<body>
+<div id="demo"></div>
+<div id="buttons">
+  <button id="btnPause">暂停</button>
+  <button id="btnPlay">播放</button>
+  <button id="btnSlow">快速</button>
+  <button id="btnNormal">超快速</button>
+  <button id="btnFast">最快速</button>
+</div>
+
+<style>#buttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+
+  #buttons > button {
+    margin-bottom: 10px;
+  }
+
+  @media ( min-width: 320px) and (max-width: 720px) {
+    #buttons > button {
+      padding: 4px 8px;
+      font-size: 20px;
+    }
+  }
+
+  #demo2 {
+    display: none;
+  }
+
+  #demo {
+    background-color: whitesmoke;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40vh;
+    overflow-y: auto;
+  }
+
+  #demo::-webkit-scrollbar {
+    display: none;
+  }
+
+  #html {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+  }</style>
+
+<div id="html">
+  <div class="face">
+    <div class="eye"></div>
+    <div class="eye eye-right"></div>
+    <div class="nose-tip "></div>
+    <div class="cheek">
+      <div class="cheek-left"></div>
+      <div class="cheek-right"></div>
+    </div>
+    <div class="mouth">
+      <div class="lip">
+        <div class="lip-left"></div>
+        <div class="lip-right"></div>
+      </div>
+      <div class="jaw">
+        <div class="lower-jaw"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="main.d3af77eb.js"></script>
+</body>
+</html>
